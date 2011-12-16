@@ -1,6 +1,6 @@
 import sys
 
-def runFormat(fmt, args):
+def runFormat(fmt, args, rangeMode=False):
 	for arg in args:
 		print fmt % arg
 
@@ -8,22 +8,21 @@ if __name__ == "__main__":
 	import argparse
 
 	parser = argparse.ArgumentParser(description="A command line string formatter")
-	parser.add_argument('-r', 
+	parser.add_argument('-r',
+	                    dest="rangeMode",
 	                    action="store_true", 
 			    default=False,
 			    help="run in range mode")
 	parser.add_argument('-f',
-	                    action="store"
+	                    dest="fmt",
+	                    action="store",
 			    help="string format")
 	parser.add_argument('-a',
-	                    action="store"
+	                    dest="fmtArgs",
+	                    action="store",
 			    help="arguments for string format")
 	parser.add_argument('-v', '--version', action='version')
 
-	args = parser.parse_args(sys.argv)
+	args = parser.parse_args(sys.argv[1:])
 
-	if len(sys.argv) < 3:
-		print "Usage: strfmt <format> <args>"
-		sys.exit(1)
-	else:
-		runFormat(sys.argv[1], sys.argv[2:])
+	runFormat(args.fmt, args.fmtArgs, args.rangeMode)
