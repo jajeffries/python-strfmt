@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 
 def runFormat(fmt, args, rangeMode=False):
